@@ -1,38 +1,69 @@
-
-<html>
-	<head>
-		<meta charset="utf-8">
-		<title>講義コードから直接出すやつ</title>
-		<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-		<script>
-			$(function search(){
-				$("#submit").click(function() {
-					r_year = $("#year").val();
-					kougicd = $("#kougicd").val();
-					url= "https://websrv.tcu.ac.jp/tcu_web_v3/slbssbdr.do?value(risyunen)="+r_year+"&value(semekikn)=1&value(kougicd)="+kougicd;
-					//console.log(url);
-					//out = "<br /><p><a href="+url+" target=\"_blank\">ここをクリックして開く</a></p>";
-					//console.log(out);
-					window.open( url, "_blank");
-					//$("#out").html(out);
-				})
+<!doctype html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<title>講義コードから直接出すやつ</title>
+	<script>
+		document.addEventListener('DOMContentLoaded',function(){
+			var syllabus = document.getElementById('syllabus');
+			syllabus.addEventListener('submit',function(e){
+				// ページ遷移抑止
+				e.preventDefault();
+				console.log('Event: submit');
+				// ベースURL取得
+				var baseUrl = syllabus.getAttribute('action');
+				console.log('baseUrl = '+baseUrl);
+				// input取得
+				var kougicd = document.getElementById('kougicd').value;
+				var semekikn = document.getElementById('semekikn').value;
+				var risyunen = document.getElementById('risyunen').value;
+				console.log('[kougicd = '+kougicd+', semekikn = '+semekikn+', risyunen = '+risyunen+']');
+				// 新規Windowで遷移
+				window.open(baseUrl+'?value(risyunen)='+risyunen+'&value(semekikn)='+semekikn+'&value(kougicd)='+kougicd,'_blank');
 			});
-		</script>
-		
-	</head>
+		});
+	</script>
+	<style>
+		body{
+			background:lightgray;
+		}
+		main{
+			width: 500px;
+			margin: 20px auto;
+			text-align:center;
+			padding: 10px 20px;
+			background:white;
+		}
 
-	<body>
-		<h1>シラバスを講義コードから直接出すやつ</h1>
-		<p>※そもそもないのがおかしい</p>
-		<p>講義コードを書き換える時はリロードしてから再度入力してください</p>
-		<br>
-		<p>履修年度(結果を出す都合上必要なので入力してください）：</p>
-		<input type="number" id="year" required>
-		<p>講義コード:</p>
-		<input type="text" id="kougicd" required>
-		<br>
-		<br>
-		<input type="button" id="submit" value="シラバスを表示" required>
-		<div id="out"></div>
-	</body>
+		form#syllabus > *{
+			font-size: 25px;
+			box-sizing: border-box;
+		}
+		form#syllabus > input[type="submit"]{
+			display: block;
+			margin: 20px auto;
+		}
+		form#syllabus > select[name="value(risyunen)"]{
+			height:40px;
+		}
+		form#syllabus > input[name="value(kougicd)"]{
+			height:40px;
+		}
+	</style>
+</head>
+
+<body>
+	<main>
+		<h1>シラバスを講義コードから<br>直接出すやつ for TCU</h1>
+		<form id="syllabus" method="get" action="https://websrv.tcu.ac.jp/tcu_web_v3/slbssbdr.do">
+			<select name="value(risyunen)" id="risyunen">
+			<option value="2019">2019年度</option>
+			<option value="2020" selected>2020年度</option>
+			</select>
+			<input type="text" name="value(kougicd)" id="kougicd" placeholder="講義コード" required>
+			<input type="hidden" name="value(semekikn)" id="semekikn" value="1">
+			<input type="submit" value="シラバスを表示">
+		</form>
+	</main>
+</body>
 </html>
