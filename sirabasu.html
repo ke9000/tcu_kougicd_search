@@ -1,0 +1,38 @@
+
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>講義コードから直接出すやつ</title>
+		<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+		<script>
+			$(function search(){
+				$("#submit").click(function() {
+					r_year = $("#year").val();
+					kougicd = $("#kougicd").val();
+					url= "https://websrv.tcu.ac.jp/tcu_web_v3/slbssbdr.do?value(risyunen)="+r_year+"&value(semekikn)=1&value(kougicd)="+kougicd;
+					//console.log(url);
+					//out = "<br /><p><a href="+url+" target=\"_blank\">ここをクリックして開く</a></p>";
+					//console.log(out);
+					window.open( url, "_blank");
+					//$("#out").html(out);
+				})
+			});
+		</script>
+		
+	</head>
+
+	<body>
+		<h1>シラバスを講義コードから直接出すやつ</h1>
+		<p>※そもそもないのがおかしい</p>
+		<p>講義コードを書き換える時はリロードしてから再度入力してください</p>
+		<br>
+		<p>履修年度(結果を出す都合上必要なので入力してください）：</p>
+		<input type="number" id="year" required>
+		<p>講義コード:</p>
+		<input type="text" id="kougicd" required>
+		<br>
+		<br>
+		<input type="button" id="submit" value="シラバスを表示" required>
+		<div id="out"></div>
+	</body>
+</html>
