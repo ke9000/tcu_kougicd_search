@@ -2,6 +2,7 @@
 <html lang="ja">
 <head>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>講義コードから直接出すやつ</title>
 	<script>
 		document.addEventListener('DOMContentLoaded',function(){
@@ -19,7 +20,7 @@
 				var risyunen = document.getElementById('risyunen').value;
 				console.log('[kougicd = '+kougicd+', semekikn = '+semekikn+', risyunen = '+risyunen+']');
 				// 新規Windowで遷移
-				window.open(baseUrl+'?value(risyunen)='+risyunen+'&value(semekikn)='+semekikn+'&value(kougicd)='+kougicd,'_blank');
+				window.open(baseUrl+'?value(risyunen)='+risyunen+'&value(semekikn)='+semekikn+'&value(kougicd)='+kougicd,'_blank','noopener');
 			});
 		});
 	</script>
@@ -28,15 +29,24 @@
 			background:lightgray;
 		}
 		main{
-			width: 500px;
+			width: 90%;
+			max-width: 500px;
 			margin: 20px auto;
 			text-align:center;
-			padding: 10px 20px;
+			padding: 5% 5%;
 			background:white;
+		}
+		@media screen and (min-width: 500px){
+			main {
+				padding: 10px 20px;
+			}
+		}
+		h1 {
+			font-size: 1.5rem;
 		}
 
 		form#syllabus > *{
-			font-size: 25px;
+			font-size: 1.3rem;
 			box-sizing: border-box;
 		}
 		form#syllabus > input[type="submit"]{
